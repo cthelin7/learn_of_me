@@ -1,0 +1,87 @@
+<head>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+</head>
+
+<div id="container">
+  
+  <v-app>
+    
+    <v-app-bar app>
+    <!-- -->
+      <h1>Who is Jesus Christ?</h1>
+  </v-app-bar>
+    
+    
+    
+    <v-main>
+      <v-container>
+
+<!--   <button v-on:click=get_data_vue()>Get data</button> -->
+  
+ 
+        
+        
+ <v-row>
+   
+   
+   
+   <v-col class="col-6">
+      <v-img
+  lazy-src="https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"
+  
+  src="https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"
+></v-img>  
+     
+   </v-col>
+   
+   <v-col>
+     
+<!--       <v-row> -->
+     
+     <v-btn class="ma-2"
+      outlined
+      color="black" v-on:click=new_row()>New observation</v-btn>
+     
+     <v-spacer></v-spacer>
+     
+        <v-card>
+          <h3>{{value}}</h3>
+          <p>{{verse}}</p>
+        </v-card>
+<!--         </v-row> -->
+<!--      <v-row> -->
+     
+        
+        
+<!--        </v-row> -->
+   </v-col>
+   
+   
+   
+   
+</v-row>
+        
+        
+        <v-divider class="my-2"></v-divider>
+        <v-card>
+          <v-card-title>Where do these come from?</v-card-title>
+  <p>Several years ago, Russell M. Nelson encouraged people to study everything in the scriptures concerning what Jesus said, did, and who He is. I wrote down every new thing I learned about Christ - attributes and qualities of His personality, how He sees things, what He finds important, who He is, etc. I learned so much about my Savior, and feel I know Him better. I also know the Book of Mormon is a book inspired of God. It doesn't just mention Christ, but helps us know Him.	</p>
+  <p>This page displays a random selection from that study. Take a second to think about each one: what does it mean to you, that Jesus is like this? Does it help you see Him as a real, living person?</p>
+  </v-card>
+<!--   <p>{{data_loaded}}</p> -->
+        </v-container>
+      </v-main>
+    </v-app>
+</div>
+
+
