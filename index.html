@@ -41,12 +41,30 @@
    
    
    <v-col class="col-6">
-      <v-img
+      <!-- <v-img
   lazy-src="https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"
   
   src="https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"
-></v-img>  
+></v-img>  --> 
      
+	 <template>
+  <v-carousel
+    cycle
+    height="400"
+    
+	hide-delimiters
+    show-arrows-on-hover
+  >
+    <v-carousel-item
+      v-for="(item,i) in images"
+      :key="i"
+      :src="item.src"
+      reverse-transition="fade-transition"
+      transition="fade-transition"
+    ></v-carousel-item>
+  </v-carousel>
+</template>
+
    </v-col>
    
    <v-col>
@@ -62,7 +80,8 @@
         <v-card>
           <v-card-text>
           <h3>{{value}}</h3>
-          <p>{{verse}}</p>
+          <!-- <p>{{verse}}</p> -->
+		  <a v-bind:href="link" target="_blank">{{verse}}</a>
             </v-card-text>
         </v-card>
 <!--         </v-row> -->
@@ -80,11 +99,53 @@
         
         
         <v-divider class="my-2"></v-divider>
-        <v-card>
-          <v-card-title>Where do these come from?</v-card-title>
-  <p>Several years ago, Russell M. Nelson encouraged people to study everything in the scriptures concerning what Jesus said, did, and who He is. I wrote down every new thing I learned about Christ - attributes and qualities of His personality, how He sees things, what He finds important, who He is, etc. I learned so much about my Savior, and feel I know Him better. I also know the Book of Mormon is a book inspired of God. It doesn't just mention Christ, but helps us know Him.	</p>
-  <p>This page displays a random selection from that study. Take a second to think about each one: what does it mean to you, that Jesus is like this? Does it help you see Him as a real, living person?</p>
+		
+		<v-card>
+			<v-card-text>Take a moment and consider each insight as it appears on this page. Picture Jesus Christ as you read it. What does it mean to you, that Jesus Christ is like this? Does it help you see Him as a real, living person? </v-card-text>
+		</v-card>
+        <v-card class="my-2">
+          <v-card-title>About this page</v-card-title>
+
+  <v-card-text>Who is Jesus Christ? Many respond to this question with a summary of His life, or a recitation of doctrine. However, He is a real person - Jesus Christ was crucified for our sins and then rose from the dead. He lives today as a resurrected Being. We can know Him personally as we approach Him in prayer, seek to follow Him, and open our hearts to His Spirit. He has real thoughts, real feelings, and a real personality. Many talk about being "Christ-like". What does that mean? What is Jesus Christ really like?</v-card-text>
+  
+  <v-card-text>In 2017, <a href="https://youtu.be/bACX8BXHuEs" target="_blank">Russell M. Nelson</a> (President of the Church of Jesus Christ of Latter-day Saints) extended the following invitation:</v-card-text>
+  
+  <blockquote class="blockquote">"Commence [now] to consecrate a portion of your time each week to studying <b>everything</b> Jesus said and did as recorded in the [scriptures]. Study His laws... His doctrine... [and] His words[.] This may seem like a large assignment. But I encourage you to accept it. If you proceed to learn all you can about Jesus Christ, I promise you that your love for Him, and for God’s laws, will grow beyond what you currently imagine. I promise you also that your ability to turn away from sin will increase. Your desire to keep the commandments will soar. You will find yourself better able to walk away from the entertainment and entanglements of those who mock the followers of Jesus Christ. (“Prophets, Leadership, and Divine Law,” Worldwide Devotional for Young Adults, January 8, 2017)</blockquote>
+	
+	<v-card-text>I took that challenge, and have been recording the insights I have found in the scriptures (the <a href="https://www.churchofjesuschrist.org/study/scriptures/nt?lang=eng" target="_blank">Holy Bible</a>, the <a href="https://www.churchofjesuschrist.org/study/scriptures/bofm?lang=eng" target="_blank">Book of Mormon</a>, and the <a href="https://www.churchofjesuschrist.org/study/scriptures/dc-testament?lang=eng" target="_blank">Doctrine and Covenants</a> of the Church of Jesus Christ of Latter-day Saints). I wrote down every new thing I learned about Christ - attributes and qualities of His personality, how He sees things, what He finds important, who He is, etc.</v-card-text>
+	
+	<v-card-text>It has changed my relationship with Jesus Christ. I have been astounded at how much of His character is contained in His words. This page contains these insights, and my hope is that they can help others come to know Him better, too.</v-card-text>
+	
+	<v-card-text>Even still, these are just words. The real miracle has been coming to know Jesus Christ better through His Spirit and by following His path. The prophetic promise President Nelson made has been true for me: I have come closer to Jesus Christ, feel greater love for Him, and felt His light grow in my life. I have felt His sweet embrace in my darker moments. I have been guided by Him in making critical decisions in my life. Even as I have pushed Him away, I've realized He persistently, unfailingly loves me and refuses to give up on me. I know He lives, I know He speak to us today through His prophet and His Spirit, and I know the holy scriptures are filled with His words. I have had intimate, personal, direct experiences with the Son of God, the Savior Jesus Christ. I encourage everyone to seek Him and follow Him and come to know Him for themselves.</v-card-text>
+	
+	
+<!-- 	Some highlights:
+-Jesus keeps His promises
+-Jesus abandons no one
+-Jesus does nothing unless it is for our benefit in the end
+-Jesus is merciful even to those who do not deserve mercy
+-Jesus sees all men and women as equals
+-is not prideful
+-Jesus could have created us as perfect people, but He intentionally created us with weaknesses so we could learn something from them
+-Jesus encourages those with self-doubts
+-Jesus sometimes asks us to come up with ideas to solve our problems instead of giving us all the answers up front
+-Jesus isn't always happy - He knows what sadness, loneliness, abandonment, and abuse feel like from personal experience
+-Jesus freely forgives and holds no grudges
+-Jesus cares a great deal about how we treat one another; charity and love and patience with each other's imperfections are among His highest priorities
+-Jesus sees the honest intent and goodness in people, no matter how hard or lost they may seem on the outside
+-Jesus often favors simple ways of doing things over the grandiose
+-Jesus never seeks to impress others as a motivation
+-Jesus lets us know when He thinks we are doing a good job, encourages us
+-Jesus has back-up plans
+-Jesus is fully committed to helping us overcome our weaknesses if we will let Him
+-Jesus helps us one at a time
+ -->
   </v-card>
+  
+  <div >
+  <a class="mx-auto" href="https://www.churchofjesuschrist.org/comeuntochrist/believe/jesus" target="_blank">Learn more about Jesus Christ here</a>
+  <p>Images taken from <a href="https://www.churchofjesuschrist.org/media/collection/jesus-christ-images?lang=eng" target="_blank">ChurchOfJesusChrist.org</a></p>
+  </div>
 <!--   <p>{{data_loaded}}</p> -->
         </v-container>
       </v-main>
@@ -93,5 +154,7 @@
 
   </body>
   
+  <script src="api_transformation.js" type="text/javascript"></script>
   <script src="main.js" type="text/javascript"></script>
+  
 </html>
