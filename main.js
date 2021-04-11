@@ -36,11 +36,13 @@ var appVue = new Vue({
 			{src: "https://assets.ldscdn.org/59/71/59712039c5ec8068ea1081c22c3a0ae3de74cb2c/jesus_christ_teaching_sermon_mount.jpeg"},
 			{src: "https://assets.ldscdn.org/26/9b/269b66348983e7ea4b7e42626556813f15042dd9/jesus_christ_children.jpeg"},
 			{src: "https://assets.ldscdn.org/53/0f/530fc0c1730455a8ca247bfb57c8a2518771973a/pictures_of_jesus_smiling.jpeg"}
-		  ]
+		  ], 
+		  plottabs: "bofm"
         },
         mounted() {
           this.get_data_vue();
 		  this.get_stats_data();
+		  //this.make_plot();
         },
         methods: {
           simple_set: function(){
@@ -69,9 +71,11 @@ var appVue = new Vue({
 			},
 			set_per_book_stats: function(unique_json){
 				this.num_per_book = unique_json;
+				this.make_plot();
 			},
 			set_per_volume_stats: function(unique_json){
 				this.num_per_volume = unique_json;
+				this.make_volumes_plot();
 			},
           new_row: function(){
             let rownum = getRndInteger(0, 1000);
@@ -100,6 +104,99 @@ var appVue = new Vue({
 				this.link = this.link + "." + verse_numbers.slice(1);
 			}
             //make all these computed properties, this just sets the new rownum
-          }
+          },
+		  make_plot(){
+			  var ot_books = [];
+			  var ot_totals = [];
+			  
+			  var nt_books = [];
+			  var nt_totals = [];
+			  
+			  var bofm_books = [];
+			  var bofm_totals = [];
+			  
+			  var dc_books = [];
+			  var dc_totals = [];
+			  
+			  for (let i=0; i < this.num_per_book.feed.entry.length - 1; i++){
+				  let this_book = this.num_per_book.feed.entry[i]["gsx$book"]["$t"];
+				  if(this_book in api_transformation["Book of Mormon"].books){
+					  bofm_books.push(this_book);
+					  bofm_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+				  } else if (this_book in api_transformation["Old Testament"].books) {
+					  ot_books.push(this_book);
+					  ot_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+				  } else if (this_book in api_transformation["New Testament"].books) {
+					  nt_books.push(this_book);
+					  nt_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+				  } else if (this_book in api_transformation["Doctrine and Covenants"].books) {
+					  dc_books.push(this_book);
+					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+				  }
+			  }
+			  
+			  
+			  
+			  var ot_data = [
+				  {
+					x: ot_books,
+					y: ot_totals,
+					type: 'bar'
+				  }
+				];
+
+			Plotly.newPlot('otPlot', ot_data);
+				
+			  
+			  var nt_data = [
+				  {
+					x: nt_books,
+					y: nt_totals,
+					type: 'bar'
+				  }
+				];
+
+			Plotly.newPlot('ntPlot', nt_data);
+				
+			  
+			  var bofm_data = [
+				  {
+					x: bofm_books,
+					y: bofm_totals,
+					type: 'bar'
+				  }
+				];
+
+			Plotly.newPlot('bofmPlot', bofm_data);
+				
+			var dc_data = [
+				  {
+					x: dc_books,
+					y: dc_totals,
+					type: 'bar'
+				  }
+				];
+
+			Plotly.newPlot('dcPlot', dc_data);
         },
+		make_volumes_plot(){
+			var volumes = [];
+			var vol_totals = [];
+			  
+			for (let i=0; i < this.num_per_volume.feed.entry.length - 1; i++){
+				  volumes.push(this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"]);
+				  vol_totals.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+			  }
+			  
+			var volume_data = [
+				  {
+					x: volumes,
+					y: vol_totals,
+					type: 'bar'
+				  }
+				];
+
+			Plotly.newPlot('volumePlot', volume_data);
+		  }
+		}
       });

@@ -14,6 +14,8 @@
   
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
   <body>
@@ -142,7 +144,114 @@
  -->
   </v-card>
   
-  <div >
+
+  
+  <v-card>
+  
+  <!-- <v-tabs
+      v-model="plottabs"
+      background-color="transparent"
+      color="basil"
+      grow
+    >
+	  <v-tab key="ot">
+        Old Testament
+      </v-tab>
+	  <v-tab key="nt">
+        New Testament
+      </v-tab>
+      <v-tab key="bofm">
+        Book of Mormon
+      </v-tab>
+	  <v-tab key="dc">
+        Doctrine & Covenants
+      </v-tab>
+	  
+    </v-tabs>
+	
+  <v-tabs-items v-model="plottabs">
+
+		<v-tab-item key="ot">
+			<v-card
+			  color="basil"
+			  flat
+			>
+			  <v-card-text>Old Testament</v-card-text>
+			  <div id="otPlot"> </div>
+			</v-card>
+		  </v-tab-item>
+		<v-tab-item key="nt">
+			<v-card
+			  color="basil"
+			  flat
+			>
+			  <v-card-text>New Testament</v-card-text>
+			  <div id="ntPlot"> </div>
+			</v-card>
+		  </v-tab-item>
+		  <v-tab-item key="bofm">
+			<v-card
+			  color="basil"
+			  flat
+			>
+			  <v-card-text>Book of Mormon</v-card-text>
+			  <div id="bofmPlot"> </div>
+			</v-card>
+		  </v-tab-item>
+		  <v-tab-item key="dc">
+				<v-card
+				  color="basil"
+				  flat
+				>
+				  <v-card-text>Doctrine & Covenants</v-card-text>
+				  <div id="dcPlot"> </div>
+			</v-card>
+		  </v-tab-item>
+          
+	  
+    </v-tabs-items>
+  </v-card> -->
+  
+			<v-card
+			  color="basil"
+			  flat
+			>
+			  <v-card-text>Old Testament</v-card-text>
+			  <div id="otPlot"> </div>
+			</v-card>
+			
+			<v-card
+			  color="basil"
+			  flat
+			>
+			  <v-card-text>New Testament</v-card-text>
+			  <div id="ntPlot"> </div>
+			</v-card>
+			
+			<v-card
+			  color="basil"
+			  flat
+			>
+			  <v-card-text>Book of Mormon</v-card-text>
+			  <div id="bofmPlot"> </div>
+			</v-card>
+			
+			<v-card
+				  color="basil"
+				  flat
+				>
+				  <v-card-text>Doctrine & Covenants</v-card-text>
+				  <div id="dcPlot"> </div>
+			</v-card>
+			
+			<v-card
+				  color="basil"
+				  flat
+				>
+				  <v-card-text>Volumes of Scriptures</v-card-text>
+				  <div id="volumePlot"> </div>
+			</v-card>
+  
   <a class="mx-auto" href="https://www.churchofjesuschrist.org/comeuntochrist/believe/jesus" target="_blank">Learn more about Jesus Christ here</a>
   <p>Images taken from <a href="https://www.churchofjesuschrist.org/media/collection/jesus-christ-images?lang=eng" target="_blank">ChurchOfJesusChrist.org</a></p>
   </div>
