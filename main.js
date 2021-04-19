@@ -1,12 +1,13 @@
-function get_data(){
-$.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/2/public/full?alt=json", function(data) {
-  //first row "title" column
-  let rownum = getRndInteger(0, 800);
-  console.log(data.feed.entry[rownum]["gsx$_cn6ca"]["$t"]);
-  var sheets_data = data;
+// function get_data(){
+// $.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/2/public/full?alt=json", function(data) {
+  // //first row "title" column
+  // let rownum = getRndInteger(1000, 1500);
+  // console.log(rownum);
+  // console.log(data.feed.entry[rownum]["gsx$_cn6ca"]["$t"]);
+  // var sheets_data = data;
   
-});
-}
+// });
+// }
 
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -26,6 +27,8 @@ var appVue = new Vue({
 		  num_per_volume: {},
           data_loaded: "No data",
           sheetsdata: {},
+		  min_value: 0,
+		  max_value: 1500,
 		  images: [
 			{src: "https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"},
 			{src: "https://assets.ldscdn.org/09/b9/09b9670bc51180a26db298d5b088701b4aed6e48/jesus_heals_lame_man.jpeg"},
@@ -78,7 +81,7 @@ var appVue = new Vue({
 				this.make_volumes_plot();
 			},
           new_row: function(){
-            let rownum = getRndInteger(0, 1000);
+            let rownum = getRndInteger(this.min_value, this.max_value);
             // console.log(rownum);
             let this_row = this.sheetsdata.feed.entry[rownum];
             let start = "";
@@ -102,101 +105,195 @@ var appVue = new Vue({
 			var verse_numbers = chap_and_verse.slice(chapter.length);
 			if (verse_numbers.length > 0){
 				this.link = this.link + "." + verse_numbers.slice(1);
+				
+				// let first_verse_pattern = new RegExp("[*]-?");
+				// let first_verse = verse_numbers.slice(1).match(/(\d+)-/)[1];
+				let first_verse = verse_numbers.slice(1).match(/\d+/)[0];
+				this.link = this.link + "?" + "#p" + first_verse + "#" + first_verse; 
 			}
             //make all these computed properties, this just sets the new rownum
           },
 		  make_plot(){
 			  var ot_books = [];
 			  var ot_totals = [];
+			  var ot_density = [];
 			  
 			  var nt_books = [];
 			  var nt_totals = [];
+			  var nt_density = [];
 			  
 			  var bofm_books = [];
 			  var bofm_totals = [];
+			  var bofm_density = [];
 			  
 			  var dc_books = [];
 			  var dc_totals = [];
+			  var dc_density = [];
 			  
 			  for (let i=0; i < this.num_per_book.feed.entry.length - 1; i++){
 				  let this_book = this.num_per_book.feed.entry[i]["gsx$book"]["$t"];
 				  if(this_book in api_transformation["Book of Mormon"].books){
 					  bofm_books.push(this_book);
 					  bofm_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+					  bofm_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Book of Mormon"].pages[this_book]);
 				  } else if (this_book in api_transformation["Old Testament"].books) {
 					  ot_books.push(this_book);
 					  ot_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+					  ot_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Old Testament"].pages[this_book]);
 				  } else if (this_book in api_transformation["New Testament"].books) {
 					  nt_books.push(this_book);
 					  nt_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+					  nt_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["New Testament"].pages[this_book]);
 				  } else if (this_book in api_transformation["Doctrine and Covenants"].books) {
 					  dc_books.push(this_book);
 					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+					  dc_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Doctrine and Covenants"].pages[this_book]);
+				  } else if (this_book in api_transformation["Pearl of Great Price"].books) {
+					  dc_books.push(this_book);
+					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+					  dc_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Pearl of Great Price"].pages[this_book]);
 				  }
 			  }
 			  
-			  
+			  var layout = {
+				  yaxis: {title: 'Number of Insights'},
+				  yaxis2:  {
+					title: 'Density of Insights',
+					titlefont: {color: 'rgb(148, 103, 189)'},
+					tickfont: {color: 'rgb(148, 103, 189)'},
+					overlaying: 'y',
+					side: 'right',
+					showgrid: false,
+					zeroline: false
+				  }
+				}
 			  
 			  var ot_data = [
 				  {
 					x: ot_books,
 					y: ot_totals,
-					type: 'bar'
+					type: 'bar',
+					name: 'Insights'
+				  },
+				  {
+					  x: ot_books,
+					  y: ot_density,
+					  type: 'line',
+					  yaxis: 'y2',
+					  name: 'Density'
 				  }
 				];
 
-			Plotly.newPlot('otPlot', ot_data);
+			Plotly.newPlot('otPlot', ot_data, layout);
 				
 			  
 			  var nt_data = [
 				  {
 					x: nt_books,
 					y: nt_totals,
-					type: 'bar'
+					type: 'bar',
+					name: 'Insights'
+				  },
+				  {
+					  x: nt_books,
+					  y: nt_density,
+					  type: 'line',
+					  yaxis: 'y2',
+					  name: 'Density'
 				  }
 				];
 
-			Plotly.newPlot('ntPlot', nt_data);
+			Plotly.newPlot('ntPlot', nt_data, layout);
 				
 			  
 			  var bofm_data = [
 				  {
 					x: bofm_books,
 					y: bofm_totals,
-					type: 'bar'
+					type: 'bar',
+					name: 'Insights'
+				  },
+				  {
+					  x: bofm_books,
+					  y: bofm_density,
+					  type: 'line',
+					  yaxis: 'y2',
+					  name: 'Density'
 				  }
-				];
+				];				
 
-			Plotly.newPlot('bofmPlot', bofm_data);
+			Plotly.newPlot('bofmPlot', bofm_data, layout);
 				
 			var dc_data = [
 				  {
 					x: dc_books,
 					y: dc_totals,
-					type: 'bar'
+					type: 'bar',
+					name: 'Insights'
+				  },
+				  {
+					  x: dc_books,
+					  y: dc_density,
+					  type: 'line',
+					  yaxis: 'y2',
+					  name: 'Density'
 				  }
 				];
 
-			Plotly.newPlot('dcPlot', dc_data);
+			Plotly.newPlot('dcPlot', dc_data, layout);
         },
 		make_volumes_plot(){
 			var volumes = [];
 			var vol_totals = [];
+			var vol_density = [];
 			  
 			for (let i=0; i < this.num_per_volume.feed.entry.length - 1; i++){
-				  volumes.push(this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"]);
-				  vol_totals.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+				let this_volume;
+				vol_totals.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+				
+				if (this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"] === ""){
+					this_volume = "Personal Insights";
+					vol_density.push(0);
+					
+				} else {
+				  this_volume = this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"];
+				  vol_density.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation[this_volume].total_pages);
+			    }
+				volumes.push(this_volume);
 			  }
 			  
+			  
+			var layout = {
+				  yaxis: {title: 'Number of Insights'},
+				  yaxis2:  {
+					title: 'Density of Insights',
+					titlefont: {color: 'rgb(148, 103, 189)'},
+					tickfont: {color: 'rgb(148, 103, 189)'},
+					overlaying: 'y',
+					side: 'right',
+					showgrid: false,
+					zeroline: false
+				  }
+				} 
+			
+			
 			var volume_data = [
 				  {
 					x: volumes,
 					y: vol_totals,
-					type: 'bar'
+					type: 'bar',
+					name: 'Insights'
+				  },
+				  {
+					x: volumes,
+					y: vol_density,
+				  type: 'line',
+				  yaxis: 'y2',
+				  name: 'Density'
 				  }
 				];
 
-			Plotly.newPlot('volumePlot', volume_data);
+			Plotly.newPlot('volumePlot', volume_data, layout);
 		  }
 		}
       });
