@@ -1,14 +1,3 @@
-// function get_data(){
-// $.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/2/public/full?alt=json", function(data) {
-  // //first row "title" column
-  // let rownum = getRndInteger(1000, 1500);
-  // console.log(rownum);
-  // console.log(data.feed.entry[rownum]["gsx$_cn6ca"]["$t"]);
-  // var sheets_data = data;
-  
-// });
-// }
-
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
@@ -28,7 +17,7 @@ var appVue = new Vue({
           data_loaded: "No data",
           sheetsdata: {},
 		  min_value: 0,
-		  max_value: 1500,
+		  max_value: 2100,
 		  images: [
 			{src: "https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"},
 			{src: "https://assets.ldscdn.org/09/b9/09b9670bc51180a26db298d5b088701b4aed6e48/jesus_heals_lame_man.jpeg"},
@@ -38,7 +27,16 @@ var appVue = new Vue({
 			{src: "https://assets.ldscdn.org/84/4c/844c966d5ffbab2e262269a7c9288e0f81754276/pictures_of_jesus.jpeg"},
 			{src: "https://assets.ldscdn.org/59/71/59712039c5ec8068ea1081c22c3a0ae3de74cb2c/jesus_christ_teaching_sermon_mount.jpeg"},
 			{src: "https://assets.ldscdn.org/26/9b/269b66348983e7ea4b7e42626556813f15042dd9/jesus_christ_children.jpeg"},
-			{src: "https://assets.ldscdn.org/53/0f/530fc0c1730455a8ca247bfb57c8a2518771973a/pictures_of_jesus_smiling.jpeg"}
+			{src: "https://assets.ldscdn.org/53/0f/530fc0c1730455a8ca247bfb57c8a2518771973a/pictures_of_jesus_smiling.jpeg"},
+			{src: "https://assets.ldscdn.org/e0/c8/e0c87850d0e1f34b2148552dabbf1a5383bc39fa/jesus_casting_out_devils.jpeg"},
+			{src: "https://assets.ldscdn.org/57/8d/578dc990416f99bc2da47eef8ca8b78950725f10/pictures_of_jesus_mary_martha.jpeg"},
+			{src: "https://assets.ldscdn.org/20/49/2049a2234e30e7fbc7cf0218045adea44baa2d7f/jesus_people_triumphal_entry_palm.jpeg"},
+			{src: "https://assets.ldscdn.org/2c/81/2c81f74e00190146ff29019fa735a970159bc6b1/jesus_woman_taken_in_adultery.jpeg"},
+			{src: "https://assets.ldscdn.org/87/c9/87c92db0964e79a52371fb367a69cbb4b7726545/pictures_of_jesus_blind_man_thanks.jpeg"},
+			{src: "https://assets.ldscdn.org/ec/a3/eca30f4601e7f40b9a6eb7eb3c05c109bb74d8b6/pictures_of_jesus_crown_thorns.jpeg"},
+			{src: "https://assets.ldscdn.org/2c/76/2c76fe4cc2542ab6d7b70ad2dd8002b3410afa18/bible_pictures_woman_issue_of_blood.jpeg"},
+			{src: "https://assets.ldscdn.org/0a/83/0a833082686f646828c099540946e8d61abac71c/pictures_of_jesus_with_children.jpeg"},
+			{src: "https://assets.ldscdn.org/23/7e/237e1b5eb52da21e67b082d4c25fc71209dc0b6c/miracles_of_jesus_pool_of_bethesda.jpeg"}			
 		  ], 
 		  plottabs: "bofm"
         },
@@ -276,6 +274,10 @@ var appVue = new Vue({
 				  }
 				} 
 			
+			var config = {
+				scrollZoom: false,
+				responsive: true
+			};
 			
 			var volume_data = [
 				  {
