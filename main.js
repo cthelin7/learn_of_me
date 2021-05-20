@@ -17,7 +17,7 @@ var appVue = new Vue({
           data_loaded: "No data",
           sheetsdata: {},
 		  min_value: 0,
-		  max_value: 2100,
+		  max_value: 2900,
 		  images: [
 			{src: "https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"},
 			{src: "https://assets.ldscdn.org/09/b9/09b9670bc51180a26db298d5b088701b4aed6e48/jesus_heals_lame_man.jpeg"},
