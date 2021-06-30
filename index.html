@@ -16,6 +16,14 @@
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+  <style>
+  .fade-transition-enter-active {
+position: absolute;
+top: 0;
+width:100%;
+}
+  </style>
 </head>
 
   <body>
@@ -42,7 +50,7 @@
    
    
    
-   <v-col class="col-6">
+   <v-col class="col-sm-6">
       <!-- <v-img
   lazy-src="https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"
   
@@ -63,6 +71,7 @@
       :src="item.src"
       reverse-transition="fade-transition"
       transition="fade-transition"
+	  
     ></v-carousel-item>
   </v-carousel>
 </template>
@@ -148,75 +157,12 @@
   
   <v-card>
 		<v-card-title>Statistics</v-card-title>
-		<v-card-text>Below is a breakdown of how many insights I recorded in each book of scripture. The bars show the number of insights I recorded, while the orange line records the density of observations (insights/number of pages): that is, I may have recorded less insights for one book than another, but it might have been because that book is much shorter. The density is the number of insights recorded divided by the number of pages in that book - that way, if a very short book contains many insights into Christ's character, you can compare it more fairly with really big books.</v-card-text>
+		<v-card-text>Below is a breakdown of how many insights I recorded in each book of scripture. The bars show the number of insights I recorded, while the orange line records the density of observations (insights/number of pages): that is, I may have recorded less insights for one book than another, but it might have been because that book is much shorter. The book in the Book of Mormon with the most insight into the character of Jesus Christ is, unsurprisingly, the book where Jesus Christ personally visits the Americas: <a class="mx-auto"  href="https://www.churchofjesuschrist.org/study/scriptures/bofm/3-ne/11?lang=eng" target="_blank">3 Nephi</a>.</v-card-text>
 		
-		<v-card-text>This becomes really apparent in the book of Moroni: it is only 13 pages long, yet it has the highest density of any of the other books. This reveals something interesting - Moroni was the last author in the Book of Mormon. He says he didn't have much room to write in the record passed down to him, but his overwhelmbing desire was to testify of Jesus Christ and "commend you to seek that Jesus." While other authors had the luxury of interspersing their testimony with accounts of history and other events, Moroni devoted every bit of space he had to testifying of Jesus Christ.</v-card-text>
-		
-  <!-- <v-tabs
-      v-model="plottabs"
-      background-color="transparent"
-      color="basil"
-      grow
-    >
-	  <v-tab key="ot">
-        Old Testament
-      </v-tab>
-	  <v-tab key="nt">
-        New Testament
-      </v-tab>
-      <v-tab key="bofm">
-        Book of Mormon
-      </v-tab>
-	  <v-tab key="dc">
-        Doctrine & Covenants
-      </v-tab>
-	  
-    </v-tabs>
-	
-  <v-tabs-items v-model="plottabs">
+		<v-card-text>The density is the number of insights recorded divided by the number of pages in that book - that way, if a very short book contains many insights into Christ's character, you can compare it more fairly with really big books. This becomes really apparent in the book of <a class="mx-auto" href="https://www.churchofjesuschrist.org/study/scriptures/bofm/moro/1?lang=eng" target="_blank">Moroni</a>: it is only 13 pages long, yet it has the highest density of any of the other books. This reveals something interesting - Moroni was the last author in the Book of Mormon. He says he didn't have much room to write in the record passed down to him, but his overwhelmbing desire was to testify of Jesus Christ and "commend you to seek that Jesus." While other authors had the luxury of interspersing their testimony with accounts of history and other events, Moroni devoted every bit of space he had to testifying of Jesus Christ.</v-card-text>
+		<!-- </v-card> -->
 
-		<v-tab-item key="ot">
-			<v-card
-			  color="basil"
-			  flat
-			>
-			  <v-card-text>Old Testament</v-card-text>
-			  <div id="otPlot"> </div>
-			</v-card>
-		  </v-tab-item>
-		<v-tab-item key="nt">
-			<v-card
-			  color="basil"
-			  flat
-			>
-			  <v-card-text>New Testament</v-card-text>
-			  <div id="ntPlot"> </div>
-			</v-card>
-		  </v-tab-item>
-		  <v-tab-item key="bofm">
-			<v-card
-			  color="basil"
-			  flat
-			>
-			  <v-card-text>Book of Mormon</v-card-text>
-			  <div id="bofmPlot"> </div>
-			</v-card>
-		  </v-tab-item>
-		  <v-tab-item key="dc">
-				<v-card
-				  color="basil"
-				  flat
-				>
-				  <v-card-text>Doctrine & Covenants</v-card-text>
-				  <div id="dcPlot"> </div>
-			</v-card>
-		  </v-tab-item>
-          
-	  
-    </v-tabs-items>
-  </v-card> -->
-  
-			<v-card
+		<!-- 	<v-card
 			  color="basil"
 			  flat
 			>
@@ -230,7 +176,7 @@
 			>
 			  <v-card-text>New Testament</v-card-text>
 			  <div id="ntPlot"> </div>
-			</v-card>
+			</v-card> -->
 			
 			<v-card
 			  color="basil"
@@ -240,7 +186,7 @@
 			  <div id="bofmPlot"> </div>
 			</v-card>
 			
-			<v-card
+			<!-- <v-card
 				  color="basil"
 				  flat
 				>
@@ -254,7 +200,7 @@
 				>
 				  <v-card-text>Volumes of Scriptures</v-card-text>
 				  <div id="volumePlot"> </div>
-			</v-card>
+			</v-card> -->
   
   <v-card-text>
   <a class="mx-auto" href="https://www.churchofjesuschrist.org/comeuntochrist/believe/jesus" target="_blank">Learn more about Jesus Christ here</a>
