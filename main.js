@@ -78,7 +78,6 @@ var appVue = new Vue({
 				//this.num_unique_insights = unique_json.feed.entry[0]["gsx$countuniqueofinsight"]["$t"];
 				this.num_unique_insights = parseFloat(unique_json.values[1]);
 			},
-			},
 			set_per_book_stats: function(unique_json){
 				this.num_per_book = unique_json;
 // 				this.num_per_book = unique_json.slice(1,);
