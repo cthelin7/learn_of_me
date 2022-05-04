@@ -79,13 +79,13 @@ var appVue = new Vue({
 				this.num_unique_insights = parseFloat(unique_json.values[1]);
 			},
 			set_per_book_stats: function(unique_json){
-				this.num_per_book = unique_json;
-// 				this.num_per_book = unique_json.slice(1,);
+// 				this.num_per_book = unique_json;
+				this.num_per_book = unique_json.slice(1,);
 				this.make_plot();
 			},
 			set_per_volume_stats: function(unique_json){
-				this.num_per_volume = unique_json;
-// 				this.num_per_volume = unique_json.slice(1,);
+// 				this.num_per_volume = unique_json;
+				this.num_per_volume = unique_json.slice(1,);
 				this.make_volumes_plot();
 			},
           new_row: function(){
