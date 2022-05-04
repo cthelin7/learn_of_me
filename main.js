@@ -148,39 +148,39 @@ var appVue = new Vue({
 			  var dc_density = [];
 			  
 // 			  for (let i=0; i < this.num_per_book.feed.entry.length - 1; i++){
-			  for (let i=0; i < this.num_per_book.values.length - 1; i++){
+			  for (let i=0; i < this.num_per_book.length - 1; i++){
 // 				  let this_book = this.num_per_book.feed.entry[i]["gsx$book"]["$t"];
-				  let this_book = this.num_per_book.values[i][0];
+				  let this_book = this.num_per_book[i][0];
 				  if(this_book in api_transformation["Book of Mormon"].books){
 					  bofm_books.push(this_book);
 // 					  bofm_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
 // 					  bofm_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Book of Mormon"].pages[this_book]);
-					  bofm_totals.push(this.num_per_book.values[i][1]);
-					  bofm_density.push(this.num_per_book.values[i][1]/api_transformation["Book of Mormon"].pages[this_book]);
+					  bofm_totals.push(this.num_per_book[i][1]);
+					  bofm_density.push(this.num_per_book[i][1]/api_transformation["Book of Mormon"].pages[this_book]);
 				  } else if (this_book in api_transformation["Old Testament"].books) {
 					  ot_books.push(this_book);
 // 					  ot_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
 // 					  ot_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Old Testament"].pages[this_book]);
-					  ot_totals.push(this.num_per_book.values[i][1]);
-					  ot_density.push(this.num_per_book.values[i][1]/api_transformation["Old Testament"].pages[this_book]);
+					  ot_totals.push(this.num_per_book[i][1]);
+					  ot_density.push(this.num_per_book[i][1]/api_transformation["Old Testament"].pages[this_book]);
 				  } else if (this_book in api_transformation["New Testament"].books) {
 					  nt_books.push(this_book);
 // 					  nt_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
 // 					  nt_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["New Testament"].pages[this_book]);
-					  nt_totals.push(this.num_per_book.values[i][1]);
-					  nt_density.push(this.num_per_book.values[i][1]/api_transformation["New Testament"].pages[this_book]);
+					  nt_totals.push(this.num_per_book[i][1]);
+					  nt_density.push(this.num_per_book[i][1]/api_transformation["New Testament"].pages[this_book]);
 				  } else if (this_book in api_transformation["Doctrine and Covenants"].books) {
 					  dc_books.push(this_book);
 // 					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
 // 					  dc_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Doctrine and Covenants"].pages[this_book]);
-					  dc_totals.push(this.num_per_book.values[i][1]);
-					  dc_density.push(this.num_per_book.values[i][1]/api_transformation["Doctrine and Covenants"].pages[this_book]);
+					  dc_totals.push(this.num_per_book[i][1]);
+					  dc_density.push(this.num_per_book[i][1]/api_transformation["Doctrine and Covenants"].pages[this_book]);
 				  } else if (this_book in api_transformation["Pearl of Great Price"].books) {
 					  dc_books.push(this_book);
 // 					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
 // 					  dc_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Pearl of Great Price"].pages[this_book]);
-					  dc_totals.push(this.num_per_book.values[i][1]);
-					  dc_density.push(this.num_per_book.values[i][1]/api_transformation["Pearl of Great Price"].pages[this_book]);
+					  dc_totals.push(this.num_per_book[i][1]);
+					  dc_density.push(this.num_per_book[i][1]/api_transformation["Pearl of Great Price"].pages[this_book]);
 				  }
 			  }
 			  
@@ -277,21 +277,21 @@ var appVue = new Vue({
 			var vol_density = [];
 			  
 // 			for (let i=0; i < this.num_per_volume.feed.entry.length - 1; i++){
-			for (let i=0; i < this.num_per_volume.values.length - 1; i++){
+			for (let i=0; i < this.num_per_volume.length - 1; i++){
 				let this_volume;
 // 				vol_totals.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
-				vol_totals.push(this.num_per_volume.values[i][1]);
+				vol_totals.push(this.num_per_volume[i][1]);
 				
 // 				if (this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"] === ""){
-				if (this.num_per_volume.values[i][0] === ""){
+				if (this.num_per_volume[i][0] === ""){
 					this_volume = "Personal Insights";
 					vol_density.push(0);
 					
 				} else {
 // 				  this_volume = this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"];
 // 				  vol_density.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation[this_volume].total_pages);
-				  this_volume = this.num_per_volume.values[i][0];
-				  vol_density.push(this.num_per_volume.values[i][1]/api_transformation[this_volume].total_pages);
+				  this_volume = this.num_per_volume[i][0];
+				  vol_density.push(this.num_per_volume[i][1]/api_transformation[this_volume].total_pages);
 			    }
 				volumes.push(this_volume);
 			  }
