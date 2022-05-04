@@ -16,7 +16,7 @@ var appVue = new Vue({
 		  num_per_volume: {},
           data_loaded: "No data",
           sheetsdata: {},
-		  min_value: 0,
+		  min_value: 1,
 		  max_value: 3000,
 		  images: [
 			{src: "https://assets.ldscdn.org/f2/ca/f2ca4d710fb8bf2ace52f10093b883e84066f05e/pictures_of_jesus_with_a_child.jpeg"},
@@ -51,7 +51,9 @@ var appVue = new Vue({
           },
           get_data_vue: function(){
             
-			  $.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/2/public/full?alt=json", this.set_data);
+			  //$.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/2/public/full?alt=json", this.set_data);
+		          $.getJSON("https://sheets.googleapis.com/v4/spreadsheets/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/values/The%20Data?key=AIzaSyCPCmb3gwzxgdBvQ17Fy6wQ0IQ3eUq0SEc", this.set_data);
+		  
             
           },
           set_data: function(jsondata){
@@ -60,39 +62,57 @@ var appVue = new Vue({
 				this.data_loaded = "Data loaded";
 			},
 			get_stats_data: function(){
-				$.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/3/public/full?alt=json", this.set_unique_total);
+// 				$.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/3/public/full?alt=json", this.set_unique_total);
 				
-				$.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/4/public/full?alt=json", this.set_per_book_stats);
+// 				$.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/4/public/full?alt=json", this.set_per_book_stats);
 				
-				$.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/5/public/full?alt=json", this.set_per_volume_stats);
+// 				$.getJSON("https://spreadsheets.google.com/feeds/list/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/5/public/full?alt=json", this.set_per_volume_stats);
+				$.getJSON("https://sheets.googleapis.com/v4/spreadsheets/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/values/UniqueRows?key=AIzaSyCPCmb3gwzxgdBvQ17Fy6wQ0IQ3eUq0SEc", this.set_unique_total);
+				
+				$.getJSON("https://sheets.googleapis.com/v4/spreadsheets/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/values/CountPerBook?key=AIzaSyCPCmb3gwzxgdBvQ17Fy6wQ0IQ3eUq0SEc", this.set_per_book_stats);
+				
+				$.getJSON("https://sheets.googleapis.com/v4/spreadsheets/1UKRLEp73t7xWzL0IEyXzlXcc9B6G4RAk6lUj4z62huE/values/CountPerVolume?key=AIzaSyCPCmb3gwzxgdBvQ17Fy6wQ0IQ3eUq0SEc", this.set_per_volume_stats);
 
 			},
 			set_unique_total: function(unique_json){
-				this.num_unique_insights = unique_json.feed.entry[0]["gsx$countuniqueofinsight"]["$t"];
+				//this.num_unique_insights = unique_json.feed.entry[0]["gsx$countuniqueofinsight"]["$t"];
+				this.num_unique_insights = parseFloat(unique_json.values[1]);
+			},
 			},
 			set_per_book_stats: function(unique_json){
-				this.num_per_book = unique_json;
+// 				this.num_per_book = unique_json;
+				this.num_per_book = unique_json.slice(1,);
 				this.make_plot();
 			},
 			set_per_volume_stats: function(unique_json){
-				this.num_per_volume = unique_json;
+// 				this.num_per_volume = unique_json;
+				this.num_per_volume = unique_json.slice(1,);
 				this.make_volumes_plot();
 			},
           new_row: function(){
             let rownum = getRndInteger(this.min_value, this.max_value);
             // console.log(rownum);
-            let this_row = this.sheetsdata.feed.entry[rownum];
+            //let this_row = this.sheetsdata.feed.entry[rownum];
+	    let this_row = this.sheetsdata.values[rownum];
             let start = "";
-            if (this_row["gsx$_cn6ca"] !== undefined){
+//             if (this_row["gsx$_cn6ca"] !== undefined){
+//               // console.log("not empty!");
+//               start = this_row["gsx$_cn6ca"]["$t"];
+//             };
+	    if (this_row[0] !== undefined){
               // console.log("not empty!");
-              start = this_row["gsx$_cn6ca"]["$t"];
+              start = this_row[0];
             };
             // console.log(start);
-			this.value = start + " " + this_row["gsx$insight"]["$t"];
+// 			this.value = start + " " + this_row["gsx$insight"]["$t"];
+            this.value = start + " " + this_row[1];
 			
-            this.verse = this_row["gsx$verses"]["$t"];
-			var volume = this_row["gsx$volume"]["$t"];
-			var book = this_row["gsx$book"]["$t"];
+//             this.verse = this_row["gsx$verses"]["$t"];
+// 			var volume = this_row["gsx$volume"]["$t"];
+// 			var book = this_row["gsx$book"]["$t"];
+            this.verse = this_row[2];
+	    var volume = this_row[4];
+	    var book = this_row[3];
 			var chap_and_verse = this.verse.slice(book.length + 1);
 			var pat = new RegExp("[^:]*");
 			var chapter = pat.exec(chap_and_verse)[0];
@@ -129,27 +149,38 @@ var appVue = new Vue({
 			  var dc_density = [];
 			  
 			  for (let i=0; i < this.num_per_book.feed.entry.length - 1; i++){
-				  let this_book = this.num_per_book.feed.entry[i]["gsx$book"]["$t"];
+// 				  let this_book = this.num_per_book.feed.entry[i]["gsx$book"]["$t"];
+				  let this_book = this.num_per_book.values[i][0];
 				  if(this_book in api_transformation["Book of Mormon"].books){
 					  bofm_books.push(this_book);
-					  bofm_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
-					  bofm_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Book of Mormon"].pages[this_book]);
+// 					  bofm_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+// 					  bofm_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Book of Mormon"].pages[this_book]);
+					  bofm_totals.push(this.num_per_book.values[i][1]);
+					  bofm_density.push(this.num_per_book.values[i][1]/api_transformation["Book of Mormon"].pages[this_book]);
 				  } else if (this_book in api_transformation["Old Testament"].books) {
 					  ot_books.push(this_book);
-					  ot_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
-					  ot_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Old Testament"].pages[this_book]);
+// 					  ot_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+// 					  ot_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Old Testament"].pages[this_book]);
+					  ot_totals.push(this.num_per_book.values[i][1]);
+					  ot_density.push(this.num_per_book.values[i][1]/api_transformation["Old Testament"].pages[this_book]);
 				  } else if (this_book in api_transformation["New Testament"].books) {
 					  nt_books.push(this_book);
-					  nt_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
-					  nt_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["New Testament"].pages[this_book]);
+// 					  nt_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+// 					  nt_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["New Testament"].pages[this_book]);
+					  nt_totals.push(this.num_per_book.values[i][1]["$t"]);
+					  nt_density.push(this.num_per_book.values[i][1]/api_transformation["New Testament"].pages[this_book]);
 				  } else if (this_book in api_transformation["Doctrine and Covenants"].books) {
 					  dc_books.push(this_book);
-					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
-					  dc_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Doctrine and Covenants"].pages[this_book]);
+// 					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+// 					  dc_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Doctrine and Covenants"].pages[this_book]);
+					  dc_totals.push(this.num_per_book.values[i][1]);
+					  dc_density.push(this.num_per_book.values[i][1]/api_transformation["Doctrine and Covenants"].pages[this_book]);
 				  } else if (this_book in api_transformation["Pearl of Great Price"].books) {
 					  dc_books.push(this_book);
-					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
-					  dc_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Pearl of Great Price"].pages[this_book]);
+// 					  dc_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+// 					  dc_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["Pearl of Great Price"].pages[this_book]);
+					  dc_totals.push(this.num_per_book.values[i][1]);
+					  dc_density.push(this.num_per_book.values[i][1]/api_transformation["Pearl of Great Price"].pages[this_book]);
 				  }
 			  }
 			  
@@ -247,15 +278,19 @@ var appVue = new Vue({
 			  
 			for (let i=0; i < this.num_per_volume.feed.entry.length - 1; i++){
 				let this_volume;
-				vol_totals.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+// 				vol_totals.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
+				vol_totals.push(this.num_per_volume.values[i][1]);
 				
-				if (this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"] === ""){
+// 				if (this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"] === ""){
+				if (this.num_per_volume.values[i][0] === ""){
 					this_volume = "Personal Insights";
 					vol_density.push(0);
 					
 				} else {
-				  this_volume = this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"];
-				  vol_density.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation[this_volume].total_pages);
+// 				  this_volume = this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"];
+// 				  vol_density.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation[this_volume].total_pages);
+				  this_volume = this.num_per_volume.values[i][0]["$t"];
+				  vol_density.push(this.num_per_volume.values[i][1]/api_transformation[this_volume].total_pages);
 			    }
 				volumes.push(this_volume);
 			  }
