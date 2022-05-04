@@ -1,1 +1,11 @@
 This project is intended to help people get to know Jesus Christ as a person: His characteristics, qualities, personality, deeds, words, and promises. All insights are taken from the scriptures accepted by the Church of Jesus Christ of Latter-day Saints, including the Holy Bible (the mortal ministry of Jesus Christ and His dealings with ancient Israel), the Book of Mormon: Another Testament of Jesus Christ (the post-Resurrection ministry and dealings of Jesus Christ with inhabitants of ancient America), Doctrine and Covenants (revelations of Jesus Christ as He organized His church and restored His gospel in modern times), and the Pearl of Great Price (a collection of lost records concerning Jesus Christ).
+
+
+# Google 
+I have stored all my data in Google Sheets. In 2022, they updated the API from v3 to v4. This required me to obtain an API key from Google Cloud. Here are resources:
+
+https://developers.google.com/sheets/api/guides/migration#v4-api_9
+
+https://developers.google.com/sheets/api/guides/authorizing#APIKey
+
+https://stackoverflow.com/questions/69410775/the-request-is-missing-a-valid-api-key-google-sheets
