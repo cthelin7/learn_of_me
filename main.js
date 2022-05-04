@@ -148,7 +148,8 @@ var appVue = new Vue({
 			  var dc_totals = [];
 			  var dc_density = [];
 			  
-			  for (let i=0; i < this.num_per_book.feed.entry.length - 1; i++){
+// 			  for (let i=0; i < this.num_per_book.feed.entry.length - 1; i++){
+			  for (let i=0; i < this.num_per_book.values.length - 1; i++){
 // 				  let this_book = this.num_per_book.feed.entry[i]["gsx$book"]["$t"];
 				  let this_book = this.num_per_book.values[i][0];
 				  if(this_book in api_transformation["Book of Mormon"].books){
@@ -167,7 +168,7 @@ var appVue = new Vue({
 					  nt_books.push(this_book);
 // 					  nt_totals.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
 // 					  nt_density.push(this.num_per_book.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation["New Testament"].pages[this_book]);
-					  nt_totals.push(this.num_per_book.values[i][1]["$t"]);
+					  nt_totals.push(this.num_per_book.values[i][1]);
 					  nt_density.push(this.num_per_book.values[i][1]/api_transformation["New Testament"].pages[this_book]);
 				  } else if (this_book in api_transformation["Doctrine and Covenants"].books) {
 					  dc_books.push(this_book);
@@ -276,7 +277,8 @@ var appVue = new Vue({
 			var vol_totals = [];
 			var vol_density = [];
 			  
-			for (let i=0; i < this.num_per_volume.feed.entry.length - 1; i++){
+// 			for (let i=0; i < this.num_per_volume.feed.entry.length - 1; i++){
+			for (let i=0; i < this.num_per_volume.values.length - 1; i++){
 				let this_volume;
 // 				vol_totals.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]);
 				vol_totals.push(this.num_per_volume.values[i][1]);
@@ -289,7 +291,7 @@ var appVue = new Vue({
 				} else {
 // 				  this_volume = this.num_per_volume.feed.entry[i]["gsx$volume"]["$t"];
 // 				  vol_density.push(this.num_per_volume.feed.entry[i]["gsx$countuniqueofinsight"]["$t"]/api_transformation[this_volume].total_pages);
-				  this_volume = this.num_per_volume.values[i][0]["$t"];
+				  this_volume = this.num_per_volume.values[i][0];
 				  vol_density.push(this.num_per_volume.values[i][1]/api_transformation[this_volume].total_pages);
 			    }
 				volumes.push(this_volume);
