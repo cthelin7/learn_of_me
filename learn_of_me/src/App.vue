@@ -26,12 +26,15 @@
 </template>
 
 <script>
+  // import { useAppStore } from "@/stores/app.js";
+
   export default {
     data: () => ({
       overlay: false,
     }),
     mounted(){
       this.overlay = true;
+      // this.appStore.get_data_vue();
     },
 
     // watch: {
@@ -41,5 +44,5 @@
     //     }, 3000)
     //   },
     // },
-  }
+ }
 </script>

@@ -9,6 +9,8 @@
             </a>
         </v-card-text>
 
+        <!-- <v-card-text>IT WOULD BE REALLY COOL TO GET THE VERSE FROM CHURCH WEBSITE</v-card-text> -->
+
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn @click="next" style="color:gold">Next</v-btn>
