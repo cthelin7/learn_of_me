@@ -14,11 +14,12 @@
     <v-overlay
       :model-value="overlay"
       class="align-center justify-center"
+      opacity=".95"
     >
       <!-- <v-card-text class="text-h4">I am Alpha and Omega, Christ the Lord; yea, even I am he, the beginning and the end, the Redeemer of the world.</v-card-text> -->
        <v-card max-width="600" color="rgba(0,0,0,0)" flat>
-        <v-card-text class="text-h4"><b style="color: yellowgreen">Learn of me</b>, and listen to my words; walk in the meekness of my Spirit, <b style="color:yellowgreen">and you shall have peace in me</b>.</v-card-text>
-        <v-card-text class="text-h4"><b style="color:gold">I am Jesus Christ</b>.</v-card-text>
+        <v-card-text class="text-h4" style="color:grey"><b style="color:gold">I am Jesus Christ</b>.</v-card-text>
+        <v-card-text class="text-h4" style="color:grey"><b style="color: yellowgreen">Learn of me</b>, and listen to my words; walk in the meekness of my Spirit, <b style="color:yellowgreen">and you shall have peace in me</b>.</v-card-text>
       </v-card>
     </v-overlay>
   </v-app>
