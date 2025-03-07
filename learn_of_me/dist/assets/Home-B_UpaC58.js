@@ -1,0 +1,1 @@
+import{z as t,B as a,P as r,A as s,k as o,Q as l,G as n}from"./index-CS9RDHNG.js";const c={__name:"Home",setup(u){return(_,e)=>(s(),t(r,null,{default:a(()=>[o(l,null,{default:a(()=>e[0]||(e[0]=[n("THIS IS THE HOME PAGE")])),_:1})]),_:1}))}};export{c as default};
