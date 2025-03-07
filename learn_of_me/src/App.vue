@@ -3,7 +3,7 @@
     <v-app-bar>
       <v-app-bar-title>LEARN OF ME</v-app-bar-title>
 
-      <v-btn @click="$router.push('/Home')">Home</v-btn>
+      <v-btn @click="$router.push('/')">Home</v-btn>
       <v-btn @click="$router.push('/About')">About</v-btn>
       <v-btn @click="$router.push('/BoM')">Book of Mormon</v-btn>
     </v-app-bar>

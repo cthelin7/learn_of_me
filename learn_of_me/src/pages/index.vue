@@ -46,11 +46,40 @@
       this.get_data_vue();
     },
     methods: {
-      nextQuote(){
+      async nextQuote(){
         this.new_row();
         this.currentQuote.text = this.value;
         this.currentQuote.link = this.link;
         this.currentQuote.linkText = this.verse;
+
+        console.log("GETTING REF");
+        let chapterRef = await this.getChapterReference(this.verse);
+        let book = chapterRef.references[0].book;
+        let chapter = chapterRef.references[0].chapters[0].start;
+        let verseStart = chapterRef.references[0].chapters[0].verses[0].start;
+        let verseEnd = chapterRef.references[0].chapters[0].verses[0].end;
+
+        let chapterContents = this.getChapterContents(book, chapter);
+        let versesContents = chapterContents.chapter.verses.slice(verseStart - 1, verseEnd - 1);
+        let versesText = [];
+        versesContents.forEach(verseObj => {
+          versesText.push(verseObj.text);
+        })
+
+        let text = versesText.join('\n');
+        console.log("text:", text);
+
+
+      },
+      async getChapterReference(reference){
+        let response = await fetch(`https://openscriptureapi.org/api/scriptures/v1/lds/en/referencesParser?reference=${reference}`);
+        console.log("Chapter", response);
+        return response;
+      },
+      getChapterContents(book, chapter){
+        let response = fetch(`https://openscriptureapi.org/api/scriptures/v1/lds/en/chapter/${book}${chapter}`);
+        console.log(response);
+        return response;
       },
       getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -79,31 +108,21 @@
         this.make_plot();
       },
       set_per_volume_stats: function(unique_json){
-  // 				this.num_per_volume = unique_json;
         this.num_per_volume = unique_json.values.slice(1,-1);
         this.make_volumes_plot();
       },
       new_row: function(){
         let rownum = this.getRndInteger(this.min_value, this.max_value);
-                  // console.log(rownum);
-                  //let this_row = this.sheetsdata.feed.entry[rownum];
+
         let this_row = this.sheetsdata.values[rownum];
         let start = "";
-      //             if (this_row["gsx$_cn6ca"] !== undefined){
-      //               // console.log("not empty!");
-      //               start = this_row["gsx$_cn6ca"]["$t"];
-      //             };
+
         if (this_row[0] !== undefined){
-                // console.log("not empty!");
           start = this_row[0];
         };
-              // console.log(start);
-  // 			this.value = start + " " + this_row["gsx$insight"]["$t"];
+
         this.value = start + " " + this_row[1];
-        
-  //             this.verse = this_row["gsx$verses"]["$t"];
-  // 			var volume = this_row["gsx$volume"]["$t"];
-  // 			var book = this_row["gsx$book"]["$t"];
+
         this.verse = this_row[2];
         var volume = this_row[4];
         var book = this_row[3];
