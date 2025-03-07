@@ -1,0 +1,11 @@
+body {
+  font-family: system-ui;
+  background: #FFFFFF;
+  color: white;
+  text-align: center;
+}
+
+.v-application {
+    background-color: var(--v-background-base) !important;
+}
+
